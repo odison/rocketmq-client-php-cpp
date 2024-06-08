@@ -178,7 +178,7 @@ PHP_METHOD(producer, setSessionCredentials) {
     Z_PARAM_STRING(one_channel, one_channel_len) 
     ZEND_PARSE_PARAMETERS_END();
 
-    print("%s",access_key);
+    php_printf("%s\n", access_key);
 
     RETURN_LONG(SetProducerSessionCredentials(GET_PRODUCER_OBJ()->producer, access_key, secret_key, one_channel));
 }
