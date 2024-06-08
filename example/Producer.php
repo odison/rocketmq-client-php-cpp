@@ -3,14 +3,14 @@ namespace RocketMQ;
 
 function NewMessage($body)
 {
-    $message = new Message("helloTopic");
+    $message = new Message("test");
 
     // $message->setDelayTimeLevel(1);
     $message->setMessageBody($body);
     $message->setMessageKeys("trace-123");
     $message->setMessageProperty("key", "value-1");
     $message->setMessageTags("hello");
-    $message->setMessageTopic("helloTopic");
+    $message->setMessageTopic("test");
 
     return $message;
 }
@@ -104,9 +104,10 @@ function selector($size, $msg, $data)
 function newProducer($group)
 {
     $producer = new Producer($group);
-    $ret = $producer->setNameServerAddress("10.203.165.25:9876");
+    $ret = $producer->setNameServerAddress("rmq-q5aqwrj8.rocketmq.bj.public.tencenttdmq.com:8080");
     $producer->setGroupName($group);
     $producer->setInstanceName($group);
+    $producer->setSessionCredentials("akq5aqwrj8cb3d44f2d029","sk8b36c074820d25513","ALIYUN");
     if ($ret == 1) {
         echo "error" . getLatestErrorMessage();
     }
@@ -249,21 +250,21 @@ function sendBatchMessage($producer)
 }
 
 
-$producer = newProducer("producer");
+$producer = newProducer("group1");
 sendMessageSync($producer);
-sendMessageAsync($producer);
-sendMessageOneway($producer);
-sendBatchMessage($producer);
+//sendMessageAsync($producer);
+//sendMessageOneway($producer);
+//sendBatchMessage($producer);
 $producer->shutdown();
 
-$transactionProducer = newTransactionProducer("transactionProducer");
-sendMessageTransaction($transactionProducer);
-$transactionProducer->shutdown();
-
-$orderlyProducer = newOrderlyProducer("orderlyProducer");
-sendMessageOrderly($orderlyProducer);
-sendMessageOrderlyByShardingKey($orderlyProducer);
-sendMessageOrderlyAsync($orderlyProducer);
-sendMessageOnewayOrderly($orderlyProducer);
-$orderlyProducer->shutdown();
+//$transactionProducer = newTransactionProducer("transactionProducer");
+//sendMessageTransaction($transactionProducer);
+//$transactionProducer->shutdown();
+//
+//$orderlyProducer = newOrderlyProducer("orderlyProducer");
+//sendMessageOrderly($orderlyProducer);
+//sendMessageOrderlyByShardingKey($orderlyProducer);
+//sendMessageOrderlyAsync($orderlyProducer);
+//sendMessageOnewayOrderly($orderlyProducer);
+//$orderlyProducer->shutdown();
 
