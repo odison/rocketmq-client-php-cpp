@@ -107,7 +107,8 @@ function newProducer($group)
     $ret = $producer->setNameServerAddress("rmq-q5aqwrj8.rocketmq.bj.public.tencenttdmq.com:8080");
     $producer->setGroupName($group);
     $producer->setInstanceName($group);
-    $producer->setSessionCredentials("akq5aqwrj8cb3d44f2d029","sk8b36c074820d25513","ALIYUN");
+    $auth = $producer->setSessionCredentials("akq5aqwrj8cb3d44f2d029","sk8b36c074820d2553","ALIYUN");
+    echo "auth:".$auth."\n";
     if ($ret == 1) {
         echo "error" . getLatestErrorMessage();
     }
